@@ -28,12 +28,12 @@ def go(args):
     idx = df['price'].between(args.min_price, args.max_price)
     df = df[idx].copy()
 
+    # Convert last_review to datetime
+    df['last_review'] = pd.to_datetime(df['last_review'])
+
     # Restrict long and lat
     idx_coord = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
     df = df[idx_coord].copy()
-
-    # Convert last_review to datetime
-    df['last_review'] = pd.to_datetime(df['last_review'])
 
     # Save the results to a CSV file
     logger.info("Save the results to a CSV file called clean_sample.csv")
